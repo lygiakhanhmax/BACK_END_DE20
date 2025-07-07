@@ -1,0 +1,82 @@
+﻿@model QuanLyLichKham.Models.LichKham
+@{
+    ViewData["Title"] = "Sửa lịch khám";
+}
+
+<h2>Sửa lịch khám</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="NgayTao" />
+
+    <div class="form-group">
+        <label asp-for="BenhNhanId" class="control-label"></label>
+        <select asp-for="BenhNhanId" class="form-control" asp-items="ViewBag.BenhNhanId">
+            <option value="">-- Chọn bệnh nhân --</option>
+        </select>
+        <span asp-validation-for="BenhNhanId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BacSiId" class="control-label"></label>
+        <select asp-for="BacSiId" class="form-control" asp-items="ViewBag.BacSiId">
+            <option value="">-- Chọn bác sĩ --</option>
+        </select>
+        <span asp-validation-for="BacSiId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NgayKham" class="control-label"></label>
+        <input asp-for="NgayKham" class="form-control" type="date" />
+        <span asp-validation-for="NgayKham" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GioKham" class="control-label"></label>
+        <input asp-for="GioKham" class="form-control" type="time" />
+        <span asp-validation-for="GioKham" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TrieuChung" class="control-label"></label>
+        <textarea asp-for="TrieuChung" class="form-control" rows="3" placeholder="Mô tả triệu chứng của bệnh nhân..."></textarea>
+        <span asp-validation-for="TrieuChung" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TrangThai" class="control-label"></label>
+        <select asp-for="TrangThai" class="form-control">
+            <option value="Chờ khám">Chờ khám</option>
+            <option value="Đã khám">Đã khám</option>
+            <option value="Đã hủy">Đã hủy</option>
+        </select>
+        <span asp-validation-for="TrangThai" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Cập nhật" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

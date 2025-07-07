@@ -1,0 +1,62 @@
+﻿@model QuanLyLichKham.Models.LichKham
+@{
+    ViewData["Title"] = "Xóa lịch khám";
+}
+
+<h2>Xóa lịch khám</h2>
+
+<h3>Bạn có chắc chắn muốn xóa lịch khám này không?</h3>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin lịch khám</h5>
+        <dl class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Bệnh nhân:</dt>
+            <dd class="col-sm-9">@(Model.BenhNhan?.TaiKhoan ?? "N/A")</dd>
+
+            <dt class="col-sm-3">Bác sĩ:</dt>
+            <dd class="col-sm-9">@(Model.BacSi?.HoTen ?? "N/A")</dd>
+
+            <dt class="col-sm-3">Ngày khám:</dt>
+            <dd class="col-sm-9">@Model.NgayKham.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Giờ khám:</dt>
+            <dd class="col-sm-9">@Model.GioKham.ToString(@"hh\:mm")</dd>
+
+            <dt class="col-sm-3">Triệu chứng:</dt>
+            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.TrieuChung) ? "Không có" : Model.TrieuChung)</dd>
+
+            <dt class="col-sm-3">Trạng thái:</dt>
+            <dd class="col-sm-9">
+                @if (Model.TrangThai == "Chờ khám")
+                {
+                    <span class="badge badge-warning">@Model.TrangThai</span>
+                }
+                else if (Model.TrangThai == "Đã khám")
+                {
+                    <span class="badge badge-success">@Model.TrangThai</span>
+                }
+                else if (Model.TrangThai == "Đã hủy")
+                {
+                    <span class="badge badge-danger">@Model.TrangThai</span>
+                }
+                else
+                {
+                    <span class="badge badge-secondary">@Model.TrangThai</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Ngày tạo:</dt>
+            <dd class="col-sm-9">@Model.NgayTao.ToString("dd/MM/yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post" class="mt-3">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Xóa" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa lịch khám này?')" />
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

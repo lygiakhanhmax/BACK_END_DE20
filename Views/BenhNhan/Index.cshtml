@@ -1,0 +1,71 @@
+﻿@model IEnumerable<QuanLyLichKham.Models.BenhNhan>
+
+@{
+    ViewData["Title"] = "Danh sách bệnh nhân";
+}
+
+<h2>DANH SÁCH NGƯỜI DÙNG</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tài khoản</th>
+            <th>Mật khẩu</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ Email</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int stt = 1;
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@stt</td>
+                    <td>@Html.DisplayFor(modelItem => item.TaiKhoan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MatKhau)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoDienThoai)</td>
+                    <td>
+                        <a href="mailto:@item.DiaChiEmail">@Html.DisplayFor(modelItem => item.DiaChiEmail)</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                stt++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">Chưa có dữ liệu</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<footer class="mt-5">
+    <p>&copy; 2024 - Hệ thống quản lý lịch khám - <a href="#" class="text-decoration-none">Quyền riêng tư</a></p>
+</footer>

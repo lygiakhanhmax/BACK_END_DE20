@@ -1,0 +1,59 @@
+﻿@model QuanLyLichKham.Models.BenhNhan
+@{
+    ViewData["Title"] = "Thêm bệnh nhân mới";
+}
+
+<h2>Thêm bệnh nhân mới</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="TaiKhoan" class="control-label"></label>
+        <input asp-for="TaiKhoan" class="form-control" />
+        <span asp-validation-for="TaiKhoan" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MatKhau" class="control-label"></label>
+        <input asp-for="MatKhau" class="form-control" type="password" />
+        <span asp-validation-for="MatKhau" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SoDienThoai" class="control-label"></label>
+        <input asp-for="SoDienThoai" class="form-control" />
+        <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DiaChiEmail" class="control-label"></label>
+        <input asp-for="DiaChiEmail" class="form-control" type="email" />
+        <span asp-validation-for="DiaChiEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Thêm mới" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
